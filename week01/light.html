@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚦</title>
+    <style>
+        body {
+            margin: 0;
+            min-width: 500px;
+        }
+
+        .lamp {
+            display: inline-block;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 50px 30px;
+            background: gray;
+        }
+
+        .lamp:first-child {
+            margin-left: calc(50vw - 210px);
+        }
+
+        .red.light {
+            background: red;
+        }
+
+        .yellow.light {
+            background: yellow;
+        }
+
+        .green.light {
+            background: green;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="lamp red"></div>
+    <div class="lamp yellow"></div>
+    <div class="lamp green"></div>
+    <script>
+        function red() {
+            let lampEle = document.querySelectorAll('.lamp')
+            console.log(typeof lampEle, 'type')
+            lampEle = [...lampEle]
+            lampEle.forEach(item => {
+                item.classList.remove('light')
+            })
+            document.querySelector('.red').classList.add('light')
+        }
+
+        function yellow() {
+            let lampEle = document.querySelectorAll('.lamp')
+            console.log(typeof lampEle, 'type')
+            lampEle = [...lampEle]
+            lampEle.forEach(item => {
+                item.classList.remove('light')
+            })
+            document.querySelector('.yellow').classList.add('light')
+        }
+
+        function green() {
+            let lampEle = document.querySelectorAll('.lamp')
+            console.log(typeof lampEle, 'type')
+            lampEle = [...lampEle]
+            lampEle.forEach(item => {
+                item.classList.remove('light')
+            })
+            document.querySelector('.green').classList.add('light')
+        }
+
+        function sleep() {
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    resolve()
+                }, 1000)
+            })
+        }
+
+        function sleepT(t) {
+            return new Promise((resolve) => {
+                setTimeout(resolve, t)
+            })
+        }
+
+        // 1.
+        // function go() {
+        //   setTimeout(() => {
+        //     red()
+        //     setTimeout(() => {
+        //       yellow()
+        //       setTimeout(() => {
+        //         green()
+        //         go()
+        //       }, 1000)
+        //     }, 1000)
+        //   }, 1000)
+        // }
+
+        // 2.
+        function go() {
+            red()
+            sleep().then(() => {
+                yellow()
+                return sleep()
+            }).then(() => {
+                green()
+                return sleep()
+            }).then(() => {
+                go()
+            })
+        }
+
+        // 3.
+        // async function go() {
+        //   red()
+        //   await sleep()
+        //   yellow()
+        //   await sleep()
+        //   green()
+        //   await sleep()
+        //   go()
+        // }
+
+        go()
+    </script>
+</body>
+
+</html>
